@@ -16,7 +16,7 @@ class Cell extends Component {
     e.currentTarget.appendChild(document.getElementById(data));
   }
   drag (e) {
-    console.log('called drag', e.currentTarget.id)
+    console.log('called drag', e.currentTarget.id )
     e.dataTransfer.setData('text', e.currentTarget.id); //e.target.id
   }
   allowDrop (e) {
@@ -24,13 +24,15 @@ class Cell extends Component {
     e.preventDefault();
   }
   render () {
+    
     var thing = this.props.show ?
       <img src={w3} draggable="true" onDragStart={(e) => this.drag(e)} id="drag1" alt='' />
-      : 0;
+      : <div draggable="true" onDragStart={(e) => this.drag(e)} id={this.props.number} alt=''>{this.props.number}</div>;
 
     return (
       <div className='cell' onDrop={(e) => this.drop(e)} onDragOver={(e)=> this.allowDrop(e)}>
         {thing}
+
       </div>
     )
   }
