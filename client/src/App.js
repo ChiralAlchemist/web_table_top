@@ -1,38 +1,58 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
+import AuthButton from './components/authButton/AuthButton'
+import Login from './components/login/Login'
+import Signup from './components/signup/Signup'
 import TableTop from './components/table_top/Table_Top'
 import './App.css';
 
-
-
 class App extends Component {
   render() {
-    var green = {
-      color : "green",
-      number : 1
-    };
-    var blue = {
-      color : "blue",
-      number : 2,
-      show: true
-    }
-
-    var tableData = [[green, green, green, green, blue],
-                      [green, green, green, green, green]
-                    ];
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <TableTop tableData={tableData} />
-      </div>
+      <Router>
+        <div>
+          <AuthButton/>
+        <ul>
+          <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">Sign Up</Link></li>
+        </ul>
+        <Route path="/signup" component={Signup}/>
+      <Route path="/login" component={Signup}/>
+        <Route path="/protected" component={TableTop}/>
+        </div>
+      </Router>
     );
   }
 }
+
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 100) // fake async
+  },
+  signout(cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
+}
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={props => (
+//     fakeAuth.isAuthenticated ? (
+//       <Component {...props}/>
+//     ) : (
+//       <Redirect to={{
+//         pathname: '/login',
+//         state: { from: props.location }
+//       }}/>
+//     )
+//   )}/>
+// )
 
 export default App;

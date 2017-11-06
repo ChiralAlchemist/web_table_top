@@ -1,7 +1,21 @@
 import React from 'react';
 import Cell from '../../components/cell/Cell'
 import './table_top.css';
-const TableTop = ({tableData}) => (
+
+//fake data
+var green = {
+  color : "green",
+  number : 1
+};
+var blue = {
+  color : "blue",
+  number : 2,
+  show: true
+}
+var tableData = [[green, green, green, green, blue],
+                  [green, green, green, green, green]
+                ];
+const TableTop = () => (
   <div>
    <table>
      <tbody>
@@ -27,5 +41,18 @@ const TableTop = ({tableData}) => (
    </table>
   </div>
 )
+//
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={props => (
+//     fakeAuth.isAuthenticated ? (
+//       <Component {...props}/>
+//     ) : (
+//       <Redirect to={{
+//         pathname: '/login',
+//         state: { from: props.location }
+//       }}/>
+//     )
+//   )}/>
+// )
 
 export default TableTop;
