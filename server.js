@@ -1,19 +1,15 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
-var bodyParser = require('body-parser');
-
+const bodyParser = require('body-parser');
+const Routes = require('./api/routes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({entened: true}))
 
 app.set("port", process.env.PORT || 3001);
 
-// TODO MAKE ROUTES FILE
-const mongodbSetup = require('./api/mongodb')
-mongodbSetup.makeUniqueFields();
-app.post('/api/users',mongodbSetup.postUser)
-app.get('/api/users', mongodbSetup.getUsers)
-app.get('/api/login', mongodbSetup.login)
+Routes(app);
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

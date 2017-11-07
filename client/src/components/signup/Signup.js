@@ -11,8 +11,8 @@ class Signup extends React.Component{
 
    this.handleChange = this.handleChange.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
-   this.handleLoginData = this.handleLoginData.bind(this);
-   this.handleSignUp = this.handleSignUp.bind(this);
+   this.handleLoginData = handleLoginData.bind(this);
+   this.handleSignUp = handleSignUp.bind(this);
   }
   handleChange(event) {
     const target = event.target;
@@ -40,11 +40,9 @@ class Signup extends React.Component{
       .then(self.handleSignUp)
       .catch(logError)
     }
-
   }
 
   render () {
-
     return (
     <div>
       <h3>{this.props.location.pathname}</h3>
@@ -62,20 +60,24 @@ class Signup extends React.Component{
     </div>
     )
   }
-  ////////////////
-  handleLoginData (response) {
-   if(response.data.success===false){
-     alert(response.data.message)
-   } else {
-     this.props.history.push('protected');
-   }
- }
- handleSignUp (response) {
-   if(response.data.success===false ) {
-     return alert(response.data.message) // TODO MAKE THIS PRETTIER
-   }
+}
+
+/////////
+//impementation functions
+////////
+function handleLoginData (response) {
+ if(response.data.success===false){
+   alert(response.data.message)
+ } else {
    this.props.history.push('protected');
  }
+}
+
+function handleSignUp (response) {
+  if(response.data.success===false ) {
+    return alert(response.data.message) // TODO MAKE THIS PRETTIER
+  }
+  this.props.history.push('protected');
 }
 
 function logError (error) {
