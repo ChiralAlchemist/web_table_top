@@ -11,14 +11,6 @@ import Signup from './components/signup/Signup'
 import TableTop from './components/table_top/Table_Top'
 import './App.css';
 
-const socket = new WebSocket('ws://localhost:3001')
-socket.addEventListener('open', function (event) {
-  socket.send('Hello Sever!');
-})
-socket.addEventListener('message', function(event) {
-  console.log('Message from the sever', event.data)
-})
-
 class App extends Component {
   render() {
     return (
@@ -30,8 +22,8 @@ class App extends Component {
         <li><Link to="/signup">Sign Up</Link></li>
         </ul>
         <Route path="/signup" component={Signup}/>
-      <Route path="/login" component={Signup}/>
-        <Route path="/protected" component={TableTop}/>
+        <Route path="/login" component={Signup}/>
+      <Route path="/protected/:user" component={TableTop} />
         </div>
       </Router>
     );

@@ -69,7 +69,8 @@ function handleLoginData (response) {
  if(response.data.success===false){
    alert(response.data.message)
  } else {
-   this.props.history.push('protected');
+   console.log(response)
+   this.props.history.push(`protected/${response.data.user.username}`);
  }
 }
 

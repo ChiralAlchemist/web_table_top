@@ -15,10 +15,24 @@ const wss = new WebSocket.Server({ server : server });
 wss.on('connection', function(ws, req){
   console.log('a user connected')
   ws.on('message', function incoming(message) {
+    wss.clients.forEach(function each(client) {
+      if(clientReady(client)){
+        client.send(message)
+        //client.send(Date.now());
+      }
+    })
     console.log('received: %s', message)
-    ws.send(Date.now());
   })
-
+  ws.on('close', function close() {
+    wss.clients.forEach(function (client) {
+      if(clientReady(client)){
+        client.send('user offile ' + ws.address)
+      }
+    })
+  })
+  function clientReady(client) {
+    return client !== ws && client.readyState === WebSocket.OPEN
+  }
 })
 Routes(app);
 

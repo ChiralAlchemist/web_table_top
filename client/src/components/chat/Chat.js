@@ -1,11 +1,30 @@
 import React from "react"
+import { withRouter } from 'react-router-dom';
+const socket = new WebSocket('ws://localhost:3001')
+
+
+socket.addEventListener('open', function(event) {
+  socket.send('hello sever')
+})
 class Chat extends React.Component{
   constructor(props) {
    super(props);
    this.state = {
-     messages: 'First message',
-     message: ''
+     messages: ['First message'],
+     message: '',
+     username: this.props.match.params.user
    };
+   var messages = this.state.messages;
+   console.log(this.state.username)
+   var self = this;
+   socket.addEventListener('message', function(event) {
+     console.log('Message from the sever', event.data)
+     var newMessages = [...self.state.messages, event.data]
+     self.setState({
+       messages: newMessages
+     })
+   })
+
    this.handleChange = this.handleChange.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,8 +38,13 @@ class Chat extends React.Component{
   }
   handleSubmit(event) {
     console.log('called')
+    event.preventDefault();
+    var message = this.state.username + ": " + this.state.message;
+    socket.send(message);
+    console.log(this.state.messages)
+    var newMessage = [...this.state.messages, message]
     this.setState({
-      messages: this.state.messages + "/n" + this.state.message,
+      messages: newMessage,
       message : ""
     });
   }
@@ -28,18 +52,24 @@ class Chat extends React.Component{
     return (
       <div>
         <div>
-          {this.state.messages}
+          <ul>
+            {this.state.messages.map(function (message){
+              return (<li>{message}</li>)
+            })
+            }
+          </ul>
         </div>
-        <input type='text'
-          name='message'
-          value= {this.state.message}
-          onChange={this.handleChange}>
-
-        </input>
-      <button type='submit' onClick={this.handleSubmit}>submit</button>
+        <form onSubmit={this.handleSubmit}>
+          <input type='text'
+            name='message'
+            value= {this.state.message}
+            onChange={this.handleChange}>
+          </input>
+          <input type='submit' value='Submit'></input>
+        </form>
       </div>
     );
   }
 }
 
-export default Chat;
+export default withRouter(Chat);
