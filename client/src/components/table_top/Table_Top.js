@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from '../../components/cell/Cell'
+import Chat from '../../components/chat/Chat'
 import './table_top.css';
 
 //fake data
@@ -39,6 +40,7 @@ const TableTop = () => (
       }
      </tbody>
    </table>
+   <Chat></Chat>
   </div>
 )
 //
