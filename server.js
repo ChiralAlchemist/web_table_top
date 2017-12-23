@@ -6,8 +6,9 @@ const Routes = require('./api/routes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({entened: true}))
 
-
+console.log('start the logging')
 app.set("port", process.env.PORT || 3001);
+console.log('process.env.PORT', process.env.PORT)
 const server = require('http').createServer(app);
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ server : server });
@@ -34,7 +35,7 @@ wss.on('connection', function(ws, req){
   }
 })
 Routes(app);
-
+console.log('made it here')
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client/build"));
