@@ -37,7 +37,7 @@ Routes(app);
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("./client/build"));
 }
 
 server.listen(app.get("port"), () => {
