@@ -13,48 +13,88 @@ var blue = {
   number : 2,
   show: true
 }
-var tableData = [[green, green, green, green, blue],
+var startingTblData = [[green, green, green, green, blue],
                   [green, green, green, green, green]
                 ];
-const TableTop = () => (
-  <div>
-   <table>
-     <tbody>
-       {
-         tableData.map(function (row, rowIdx) {
-           return (
-             <tr key={rowIdx}>
-               {
-                row.map(function (cell, colIdx) {
-                   var key = rowIdx*10 + colIdx
-                   return (
-                     <td key={key}>
-                       <Cell  id={key} number={key} show={cell.show}/>
-                    </td>
-                 )
-                })
-             }
-           </tr>
-         )
-       })
+class TableTop extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startingPosition: [0,0],
+      endingPosition: [0,0],
+      tableData: startingTblData
+    };
+    this.handleDrag = this.handleDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+  }
+  handleDrag (startingPosition) {
+    this.setState({
+      startingPosition
+    })
+  }
+  handleDrop(endingPosition){
+    var {startingPosition, tableData} = this.state
+    this.setState(
+      {
+        tableData: change(tableData, startingPosition, endingPosition)
       }
-     </tbody>
-   </table>
-   <Chat></Chat>
+    )
+    console.log(this.state)
+    function change (matrix, start, end) {
+      var temp = matrix[start[0]][start[1]]
+
+      var newMatrix = [
+        ...matrix.slice(0,start[0]),
+        matrix[start[0]].slice(0,start[1]).concat([matrix[end[0]][end[1]]],
+        matrix[start[0]].slice(start[1]+1)),
+        ...matrix.slice(start[0]+1)
+      ]
+      newMatrix[end[0]][end[1]] = temp;
+      return  newMatrix
+    }
+  }
+  render () {
+    var self = this;
+    var tableData = this.state.tableData
+    return (
+    <div>
+      <table>
+        <tbody>
+          {
+
+            tableData.map(function (row, rowIdx) {
+              return (
+                <tr key={rowIdx}>
+                  {
+                    row.map(function (cell, colIdx) {
+                      var key = rowIdx*10 + colIdx
+                      var position = [rowIdx, colIdx]
+
+                      return (
+                        <td key={key}>
+                          <Cell  position={position}
+                            handleDrag ={self.handleDrag}
+                            handleDrop ={self.handleDrop}
+                            id={key}
+                            number={key}
+                            show={cell.show}/>
+                        </td>
+                      )
+                    })
+                  }
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+      <Chat></Chat>
   </div>
-)
-//
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route {...rest} render={props => (
-//     fakeAuth.isAuthenticated ? (
-//       <Component {...props}/>
-//     ) : (
-//       <Redirect to={{
-//         pathname: '/login',
-//         state: { from: props.location }
-//       }}/>
-//     )
-//   )}/>
-// )
+  )
+  }
+}
+
+
+
 
 export default TableTop;

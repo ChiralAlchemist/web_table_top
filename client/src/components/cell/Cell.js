@@ -9,25 +9,33 @@ class Cell extends Component {
     this.drag = this.drag.bind(this);
     this.allowDrop = this.allowDrop.bind(this);
   }
-  drop (e) {
-    console.log('called drop', e)
-    e.preventDefault();
-    var data = e.dataTransfer.getData("text");
-    e.currentTarget.appendChild(document.getElementById(data));
-  }
   drag (e) {
-    console.log('called drag', e.currentTarget.id )
-    e.dataTransfer.setData('text', e.currentTarget.id); //e.target.id
+    var startingPosition = this.props.position
+    this.props.handleDrag(startingPosition)
+    // e.dataTransfer.setData('text', e.currentTarget.id); //e.target.id
+  }
+  drop (e) {
+    e.preventDefault();
+    var endingPosition = this.props.position
+    this.props.handleDrop(endingPosition);
+    // var data = e.dataTransfer.getData("text");
+    // e.currentTarget.appendChild(document.getElementById(data));
   }
   allowDrop (e) {
-    console.log('called allowDrop', e);
     e.preventDefault();
   }
   render () {
-    
+
     var thing = this.props.show ?
-      <img src={w3} draggable="true" onDragStart={(e) => this.drag(e)} id="drag1" alt='' />
-      : <div draggable="true" onDragStart={(e) => this.drag(e)} id={this.props.number} alt=''>{this.props.number}</div>;
+      <img src={w3} draggable="true"
+        onDragStart={(e) => this.drag(e)}
+        id="drag1"
+        alt='' />
+      : <div draggable="true"
+        onDragStart={(e) => this.drag(e)}
+        id={this.props.number}
+        alt=''>{this.props.number}
+      </div>;
 
     return (
       <div className='cell' onDrop={(e) => this.drop(e)} onDragOver={(e)=> this.allowDrop(e)}>
