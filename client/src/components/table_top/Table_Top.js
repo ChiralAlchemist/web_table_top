@@ -39,17 +39,15 @@ class TableTop extends React.Component {
         tableData: change(tableData, startingPosition, endingPosition)
       }
     )
-    console.log(this.state)
     function change (matrix, start, end) {
       var temp = matrix[start[0]][start[1]]
-
       var newMatrix = [
         ...matrix.slice(0,start[0]),
         matrix[start[0]].slice(0,start[1]).concat([matrix[end[0]][end[1]]],
         matrix[start[0]].slice(start[1]+1)),
         ...matrix.slice(start[0]+1)
       ]
-      newMatrix[end[0]][end[1]] = temp;
+      newMatrix[end[0]][end[1]] = temp; // swap 2nd value
       return  newMatrix
     }
   }
