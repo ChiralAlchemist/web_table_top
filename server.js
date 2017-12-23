@@ -37,6 +37,7 @@ wss.on('connection', function(ws, req){
 Routes(app);
 console.log('made it here')
 // Express only serves static assets in production
+console.log("process.env.NODE_ENV", process.env.NODE_ENV)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client/build"));
 }
