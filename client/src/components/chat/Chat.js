@@ -37,7 +37,6 @@ class Chat extends React.Component{
     });
   }
   handleSubmit(event) {
-    console.log('called')
     event.preventDefault();
     var message = this.state.username + ": " + this.state.message;
     socket.send(message);
@@ -53,8 +52,8 @@ class Chat extends React.Component{
       <div>
         <div>
           <ul>
-            {this.state.messages.map(function (message){
-              return (<li>{message}</li>)
+            {this.state.messages.map(function (message, idx){
+              return (<li key = {idx}>{message}</li>)
             })
             }
           </ul>

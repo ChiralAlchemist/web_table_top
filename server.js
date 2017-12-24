@@ -18,7 +18,6 @@ wss.on('connection', function(ws, req){
     wss.clients.forEach(function each(client) {
       if(clientReady(client)){
         client.send(message)
-        //client.send(Date.now());
       }
     })
     console.log('received: %s', message)
@@ -26,7 +25,7 @@ wss.on('connection', function(ws, req){
   ws.on('close', function close() {
     wss.clients.forEach(function (client) {
       if(clientReady(client)){
-        client.send('user offile ' + ws.address)
+        client.send('a user went offile ') // TODO say which user went offile
       }
     })
   })

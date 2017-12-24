@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
+  "homepage":"http://ChiralAlchemist.github.io/web-table-top",
   "dependencies": {
     "axios": "^0.17.0",
     "react": "^16.0.0",
@@ -12,6 +13,8 @@
     "socket.io": "^2.0.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
