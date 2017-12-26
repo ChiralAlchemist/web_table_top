@@ -2,7 +2,8 @@ import React from 'react';
 import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
 import './table_top.css';
-
+const webSocketurl = 'ws://localhost:3001'
+const socket = new WebSocket(webSocketurl)
 //fake data
 var green = {
   color : "green",
@@ -24,6 +25,14 @@ class TableTop extends React.Component {
       endingPosition: [0,0],
       tableData: startingTblData
     };
+
+    function setUpWebSocket () {
+      socket.addEventListener('message', function(event) {
+        if(event.data.type==="board"){
+
+        }
+      })
+    }
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
   }

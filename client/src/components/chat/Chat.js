@@ -1,11 +1,8 @@
 import React from "react"
 import { withRouter } from 'react-router-dom';
-const socket = new WebSocket('ws://localhost:3001')
+const webSocketurl = 'ws://localhost:3001'
+const socket = new WebSocket(webSocketurl)
 
-
-socket.addEventListener('open', function(event) {
-  socket.send('hello sever')
-})
 class Chat extends React.Component{
   constructor(props) {
    super(props);
@@ -19,10 +16,13 @@ class Chat extends React.Component{
    var self = this;
    socket.addEventListener('message', function(event) {
      console.log('Message from the sever', event.data)
-     var newMessages = [...self.state.messages, event.data]
-     self.setState({
-       messages: newMessages
-     })
+     var socketObj = JSON.parse(event.data);
+     if(socketObj.type === "chat") {
+       var newMessages = [...self.state.messages,socketObj.user+": "+ socketObj.data]
+       self.setState({
+         messages: newMessages
+       })
+     }
    })
 
    this.handleChange = this.handleChange.bind(this);
@@ -38,12 +38,16 @@ class Chat extends React.Component{
   }
   handleSubmit(event) {
     event.preventDefault();
-    var message = this.state.username + ": " + this.state.message;
-    socket.send(message);
-    console.log(this.state.messages)
-    var newMessage = [...this.state.messages, message]
+    var {username, message, messages } = this.state
+    var newMessage = username + ": " + message;
+    var socketData = {
+      type : 'chat',
+      data : message,
+      user : username
+    }
+    socket.send(JSON.stringify(socketData));
     this.setState({
-      messages: newMessage,
+      messages: [...messages, newMessage],
       message : ""
     });
   }
