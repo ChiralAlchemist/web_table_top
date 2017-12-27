@@ -1,7 +1,6 @@
 const MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 co = require('co');
-// const mongoose = require("mongoose")
 const url = "mongodb://jashby473:thedbpassword@ds036577.mlab.com:36577/jashbyblog";
 
 const setupMongoDb = {

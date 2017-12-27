@@ -3,8 +3,9 @@ const fs = require("fs");
 const app = express();
 const bodyParser = require('body-parser');
 const Routes = require('./api/routes');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({entened: true}))
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, entened: true}));
+
 
 
 app.set("port", process.env.PORT || 3001);
