@@ -54,7 +54,11 @@ class TableTop extends React.Component {
       type: 'board',
       data: newTable
     })
-    socket.send(socketData);
+    if(socket.readyState===1) {
+      socket.send(socketData);
+    } else {
+      alert('sockets not connected') // TODO EXPAND ON THIS
+    }
     this.setState(
       {
         tableData: newTable

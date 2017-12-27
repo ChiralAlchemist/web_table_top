@@ -37,12 +37,16 @@ class Chat extends React.Component{
     event.preventDefault();
     var {username, message, messages } = this.state
     var newMessage = username + ": " + message;
-    var socketData = {
+    var socketData = JSON.stringify({
       type : 'chat',
       data : message,
       user : username
+    })
+    if(socket.readyState===1) {
+      socket.send(socketData);
+    } else {
+      alert('sockets not connected') // TODO EXPAND ON THIS
     }
-    socket.send(JSON.stringify(socketData));
     this.setState({
       messages: [...messages, newMessage],
       message : ""
