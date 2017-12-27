@@ -1,6 +1,7 @@
 import React from 'react';
 import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
+import ImageUpload from '../../components/imageUpload/ImageUpload'
 import './table_top.css';
 import w3 from './img_w3slogo.gif'
 const webSocketurl = 'ws://localhost:3001'
@@ -109,6 +110,7 @@ class TableTop extends React.Component {
         </tbody>
       </table>
       <Chat></Chat>
+      <ImageUpload></ImageUpload>
   </div>
   )
   }
