@@ -11,11 +11,8 @@ class Chat extends React.Component{
      message: '',
      username: this.props.match.params.user
    };
-   var messages = this.state.messages;
-   console.log(this.state.username)
    var self = this;
    socket.addEventListener('message', function(event) {
-     console.log('Message from the sever', event.data)
      var socketObj = JSON.parse(event.data);
      if(socketObj.type === "chat") {
        var newMessages = [...self.state.messages,socketObj.user+": "+ socketObj.data]

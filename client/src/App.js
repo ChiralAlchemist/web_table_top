@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect
+  Link
 } from 'react-router-dom';
 import AuthButton from './components/authButton/AuthButton'
-import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
 import TableTop from './components/table_top/Table_Top'
 import './App.css';

@@ -27,11 +27,10 @@ class TableTop extends React.Component {
     };
     const self = this;
     setUpWebSocket()
-    
+
     function setUpWebSocket () {
       socket.addEventListener('message', function(event) {
         var socketObj = JSON.parse(event.data)
-        console.log('someone did something', event.data, socketObj)
         if(socketObj.type==="board"){
           self.setState({
             tableData: socketObj.data
