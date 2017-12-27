@@ -2,6 +2,7 @@ import React from 'react';
 import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
 import './table_top.css';
+import w3 from './img_w3slogo.gif'
 const webSocketurl = 'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
 //fake data
@@ -12,7 +13,7 @@ var green = {
 var blue = {
   color : "blue",
   number : 2,
-  show: true
+  image: w3
 }
 var startingTblData = [[green, green, green, green, blue],
                   [green, green, green, green, green]
@@ -79,7 +80,6 @@ class TableTop extends React.Component {
       <table>
         <tbody>
           {
-
             tableData.map(function (row, rowIdx) {
               return (
                 <tr key={rowIdx}>
@@ -87,15 +87,13 @@ class TableTop extends React.Component {
                     row.map(function (cell, colIdx) {
                       var key = rowIdx*10 + colIdx
                       var position = [rowIdx, colIdx]
-
                       return (
                         <td key={key}>
                           <Cell  position={position}
                             handleDrag ={self.handleDrag}
                             handleDrop ={self.handleDrop}
-                            id={key}
-                            number={key}
-                            show={cell.show}/>
+                            image={cell.image}
+                          />
                         </td>
                       )
                     })
