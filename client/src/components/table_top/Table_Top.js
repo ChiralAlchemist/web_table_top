@@ -26,7 +26,8 @@ class TableTop extends React.Component {
     this.state = {
       startingPosition: [0,0],
       endingPosition: [0,0],
-      tableData: startingTblData
+      tableData: startingTblData,
+      addingImage: null
     };
     const self = this;
     setUpWebSocket()
@@ -43,6 +44,12 @@ class TableTop extends React.Component {
     }
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.addImage = this.addImage.bind(this);
+  }
+  addImage (e) {
+    this.setState({
+      addingImage: e
+    })
   }
   handleDrag (startingPosition) {
     this.setState({
@@ -50,8 +57,18 @@ class TableTop extends React.Component {
     })
   }
   handleDrop(endingPosition){
-    var {startingPosition, tableData} = this.state;
-    var newTable = change(tableData, startingPosition, endingPosition);
+    debugger;
+    var {startingPosition, tableData, addingImage} = this.state;
+    var newTable;
+    if(addingImage){
+      newTable = change(tableData,endingPosition, addingImage)
+      this.setState({
+        addingImage: null
+      })
+    } else{
+      newTable = swap(tableData, startingPosition, endingPosition);
+    }
+    debugger;
     var socketData = JSON.stringify({
       type: 'board',
       data: newTable
@@ -66,7 +83,7 @@ class TableTop extends React.Component {
         tableData: newTable
       }
     )
-    function change (matrix, start, end) {
+    function swap (matrix, start, end) {
       var temp = matrix[start[0]][start[1]]
       var newMatrix = [
         ...matrix.slice(0,start[0]),
@@ -76,6 +93,15 @@ class TableTop extends React.Component {
       ]
       newMatrix[end[0]][end[1]] = temp; // swap 2nd value
       return  newMatrix
+    }
+    function change(matrix, start,value){
+      var newMatrix = [
+        ...matrix.slice(0,start[0]),
+        matrix[start[0]].slice(0,start[1]).concat([value],
+        matrix[start[0]].slice(start[1]+1)),
+        ...matrix.slice(start[0]+1)
+      ]
+      return newMatrix;
     }
   }
   render () {
@@ -112,7 +138,7 @@ class TableTop extends React.Component {
       </table>
       <Chat></Chat>
       <ImageUpload></ImageUpload>
-      <ImageAdder></ImageAdder>
+      <ImageAdder addImage={self.addImage}></ImageAdder>
   </div>
   )
   }

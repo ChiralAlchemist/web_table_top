@@ -1,11 +1,14 @@
 import React from "react";
 import axios from 'axios';
+import w3 from './img_w3slogo.gif';
 import './imageAdder.css';
 class ImageAdder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: []
+      images: [{
+        image: w3
+      }]
     };
   }
   _handleClick (e) {
@@ -20,15 +23,25 @@ class ImageAdder extends React.Component {
 
     })
   }
+  _handleDragStart (e, img){
+    //e.preventDefault();
+    this.props.addImage(img)
+    console.log('e is this', e, img)
+  }
   render () {
-
+    const self = this;
     return (
       <div>
         <button onClick={(e)=>this._handleClick(e)}>Refresh</button>
         {
+
           this.state.images.map(function (image, idx) {
             return (
-              <img className="newImage" src={image.image} />
+              <img
+                className="newImage"
+                draggable="true"
+                onDragStart={(e)=>self._handleDragStart(e, image)}
+                src={image.image} />
             )
           })
         }
