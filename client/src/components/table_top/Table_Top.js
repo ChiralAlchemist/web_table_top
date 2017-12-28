@@ -46,7 +46,7 @@ class TableTop extends React.Component {
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.addImage = this.addImage.bind(this);
-    this.handleBoardChange = this.handleBoardChange.bind(this); 
+    this.handleBoardChange = this.handleBoardChange.bind(this);
   }
   addImage (e) {
     this.setState({
@@ -56,11 +56,19 @@ class TableTop extends React.Component {
   handleBoardChange (type, value) {
     var { tableData } = this.state
     if(type === 'rows') {
-      var newTable = [...tableData]
-      var newRow = tableData[0].map(function () {
-        return {}
-      })
-      newTable.push(newRow)
+      var newTable;
+      if(value>tableData.length){
+        newTable = [...tableData]
+        var newRow = tableData[0].map(function () {
+          return {}
+        })
+        for(var i=tableData.length; i<value; i++){
+          newTable.push(newRow)
+        }
+      }
+      if(value<tableData.length){
+        newTable = tableData.slice(0,value)
+      }
       this.setState({
         tableData: newTable
       })

@@ -3,7 +3,7 @@ class BoardManipulator extends Component {
   constructor(props) {
     super(props);
     this.state= {
-      rows : 5,
+      rows : 2,
       columns: 5
     }
   }
@@ -12,7 +12,9 @@ class BoardManipulator extends Component {
     this.setState({
       rows: newRowNumber
     })
-    this.props.boardManipulator('rows', newRowNumber)
+    if(newRowNumber>0){
+      this.props.boardManipulator('rows', newRowNumber)
+    }
   }
   changeColumns (e) {
     var newColumnsNumber = e.target.value;
