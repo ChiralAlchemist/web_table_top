@@ -6,3 +6,11 @@
   border-left: 1px solid gray;
   border-right: 1px solid gray;
 }
+.customImageContainer {
+  text-align: center;
+  margin: 5px 15px;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  border-top: 5px solid gray;
+  border-bottom: 5px solid gray;
+}

@@ -35,7 +35,6 @@ class Signup extends React.Component{
       .then(self.handleLoginData)
       .catch(logError)
     } else {
-      console.log('sent signup info')
       signup(userInfo)
       .then(self.handleSignUp)
       .catch(logError)
@@ -69,7 +68,6 @@ function handleLoginData (response) {
  if(response.data.success===false){
    alert(response.data.message)
  } else {
-   console.log(response)
    this.props.history.push(`protected/${response.data.user.username}`);
  }
 }

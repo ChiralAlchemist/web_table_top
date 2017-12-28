@@ -14,7 +14,6 @@ class ImageAdder extends React.Component {
   _handleClick (e) {
     console.log('hangle click', this.state)
     var self = this;
-    var {images} = this.state
     axios.get('/api/images')
     .then(function (response) {
       self.setState({
@@ -31,7 +30,8 @@ class ImageAdder extends React.Component {
   render () {
     const self = this;
     return (
-      <div>
+      <div className='customImageContainer'>
+        <h2>Custom Images</h2>
         <button onClick={(e)=>this._handleClick(e)}>Refresh</button>
         {
 
@@ -40,6 +40,7 @@ class ImageAdder extends React.Component {
               <img
                 className="newImage"
                 draggable="true"
+                alt="" 
                 onDragStart={(e)=>self._handleDragStart(e, image)}
                 src={image.image} />
             )

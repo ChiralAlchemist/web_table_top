@@ -26,7 +26,6 @@ const imageOperations = {
       var db = yield MongoClient.connect(url);
       var images = yield db.collection('images').find({type:"image"}).toArray()
       db.close();
-      //console.log(images)
       res.json({
         images: images
       })
@@ -34,7 +33,6 @@ const imageOperations = {
     .catch(function (error){
       console.log(error.stack)
     })
-    //res.send({images:'route need to be setup'})
   }
 }
 

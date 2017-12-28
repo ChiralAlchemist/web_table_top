@@ -14,14 +14,12 @@ const WebSocket = require('ws')
 const wss = new WebSocket.Server({ server : server });
 
 wss.on('connection', function(ws, req){
-  console.log('a user connected')
   ws.on('message', function incoming(message) {
     wss.clients.forEach(function each(client) {
       if(clientReady(client)){
         client.send(message)
       }
     })
-    console.log('received: %s', message)
   })
   ws.on('close', function close() {
     wss.clients.forEach(function (client) {
