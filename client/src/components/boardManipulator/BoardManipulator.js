@@ -21,6 +21,7 @@ class BoardManipulator extends Component {
     this.setState({
       columns: newColumnsNumber
     })
+    this.props.boardManipulator('columns', newColumnsNumber)
   }
   render () {
     return (

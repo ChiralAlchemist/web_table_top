@@ -55,8 +55,8 @@ class TableTop extends React.Component {
   }
   handleBoardChange (type, value) {
     var { tableData } = this.state
+    var newTable;
     if(type === 'rows') {
-      var newTable;
       if(value>tableData.length){
         newTable = [...tableData]
         var newRow = tableData[0].map(function () {
@@ -69,10 +69,24 @@ class TableTop extends React.Component {
       if(value<tableData.length){
         newTable = tableData.slice(0,value)
       }
-      this.setState({
-        tableData: newTable
+
+    }
+    if(type === 'columns'){
+      newTable = tableData.map(function (row){
+        var newRow
+        if(value>row.length){
+          newRow= [...row];
+          newRow.push({});
+        }
+        if(value<row.length){
+          newRow = row.slice(0,value);
+        }
+        return newRow;
       })
     }
+    this.setState({
+      tableData: newTable
+    })
   }
   handleDrag (startingPosition) {
     this.setState({
