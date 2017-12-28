@@ -6,9 +6,13 @@ const url = "mongodb://jashby473:thedbpassword@ds036577.mlab.com:36577/jashbyblo
 const imageOperations = {
   post : function (req, res) {
     co(function* () {
-      var image = req.body
+      var image = {
+        type: "image",
+        image: req.body.image
+      }
       var db = yield MongoClient.connect(url);
       var r = yield db.collection('images').insertOne(image)
+      db.close();
     })
     .catch(function (error){
       console.log(error.name)
@@ -18,7 +22,19 @@ const imageOperations = {
     })
   },
   get : function (req, res) {
-    res.send('route need to be setup')
+    co(function* () {
+      var db = yield MongoClient.connect(url);
+      var images = yield db.collection('images').find({type:"image"}).toArray()
+      db.close();
+      //console.log(images)
+      res.json({
+        images: images
+      })
+    })
+    .catch(function (error){
+      console.log(error.stack)
+    })
+    //res.send({images:'route need to be setup'})
   }
 }
 

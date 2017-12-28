@@ -1,6 +1,7 @@
 import React from 'react';
 import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
+import ImageAdder from '../../components/imageAdder/ImageAdder'
 import ImageUpload from '../../components/imageUpload/ImageUpload'
 import './table_top.css';
 import w3 from './img_w3slogo.gif'
@@ -111,6 +112,7 @@ class TableTop extends React.Component {
       </table>
       <Chat></Chat>
       <ImageUpload></ImageUpload>
+      <ImageAdder></ImageAdder>
   </div>
   )
   }

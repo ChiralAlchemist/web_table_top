@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './imageUpload.css';
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -11,12 +12,14 @@ class ImageUpload extends React.Component {
     // TODO: do something with -> this.state.file
     var {imagePreviewUrl} = this.state;
     var imageData = {
-
       image: imagePreviewUrl
     }
     axios.post('/api/images',imageData)
     .then(function (response){
       console.log('response ', response);
+    })
+    .catch(function (error){
+      console.error(error)
     })
     console.log('handle uploading-', this.state.file);
   }
