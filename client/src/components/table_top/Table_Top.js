@@ -1,4 +1,5 @@
 import React from 'react';
+import BoardManipulator from '../../components/boardManipulator/BoardManipulator'
 import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
 import ImageAdder from '../../components/imageAdder/ImageAdder'
@@ -45,11 +46,25 @@ class TableTop extends React.Component {
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.addImage = this.addImage.bind(this);
+    this.handleBoardChange = this.handleBoardChange.bind(this); 
   }
   addImage (e) {
     this.setState({
       addingImage: e
     })
+  }
+  handleBoardChange (type, value) {
+    var { tableData } = this.state
+    if(type === 'rows') {
+      var newTable = [...tableData]
+      var newRow = tableData[0].map(function () {
+        return {}
+      })
+      newTable.push(newRow)
+      this.setState({
+        tableData: newTable
+      })
+    }
   }
   handleDrag (startingPosition) {
     this.setState({
@@ -107,6 +122,7 @@ class TableTop extends React.Component {
     var tableData = this.state.tableData
     return (
     <div>
+      <BoardManipulator boardManipulator={self.handleBoardChange}></BoardManipulator>
       <table>
         <tbody>
           {
