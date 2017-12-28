@@ -1,6 +1,6 @@
 import React from "react"
 import { withRouter } from 'react-router-dom';
-const webSocketurl = 'ws://localhost:3001'
+const webSocketurl = "ws://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
 
 class Chat extends React.Component{

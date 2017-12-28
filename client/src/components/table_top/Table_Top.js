@@ -5,7 +5,7 @@ import ImageAdder from '../../components/imageAdder/ImageAdder'
 import ImageUpload from '../../components/imageUpload/ImageUpload'
 import './table_top.css';
 import w3 from './img_w3slogo.gif'
-const webSocketurl = 'ws://localhost:3001'
+const webSocketurl = "ws://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
 //fake data
 var green = {
@@ -57,7 +57,6 @@ class TableTop extends React.Component {
     })
   }
   handleDrop(endingPosition){
-    debugger;
     var {startingPosition, tableData, addingImage} = this.state;
     var newTable;
     if(addingImage){
@@ -68,7 +67,6 @@ class TableTop extends React.Component {
     } else{
       newTable = swap(tableData, startingPosition, endingPosition);
     }
-    debugger;
     var socketData = JSON.stringify({
       type: 'board',
       data: newTable
