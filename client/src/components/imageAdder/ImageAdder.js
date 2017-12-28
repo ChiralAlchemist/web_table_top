@@ -1,5 +1,6 @@
-import React from "react"
+import React from "react";
 import axios from 'axios';
+import './imageAdder.css';
 class ImageAdder extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ class ImageAdder extends React.Component {
         {
           this.state.images.map(function (image, idx) {
             return (
-              <img src={image.image} />
+              <img className="newImage" src={image.image} />
             )
           })
         }
