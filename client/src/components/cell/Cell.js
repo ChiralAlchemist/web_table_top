@@ -23,6 +23,7 @@ class Cell extends Component {
 
     var cellContent = this.props.image ?
       <img src={this.props.image}
+        className="cellImage"
         draggable="true"
         onDragStart={(e) => this.drag(e)}
         alt=''
