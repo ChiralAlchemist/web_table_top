@@ -5,7 +5,7 @@ import ImageAdder from '../../components/imageAdder/ImageAdder'
 import ImageUpload from '../../components/imageUpload/ImageUpload'
 import './table_top.css';
 import w3 from './img_w3slogo.gif'
-const webSocketurl = "ws://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
+const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
 //fake data
 var green = {
