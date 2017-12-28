@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
-  "homepage":"http://ChiralAlchemist.github.io/web-table-top",
   "dependencies": {
     "axios": "^0.17.0",
     "react": "^16.0.0",
