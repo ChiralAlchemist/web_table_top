@@ -69,14 +69,18 @@ class TableTop extends React.Component {
       if(value<tableData.length){
         newTable = tableData.slice(0,value)
       }
-
+      if(value===tableData.length){
+        newTable = tableData.slice(0, tableData.length)
+      }
     }
     if(type === 'columns'){
       newTable = tableData.map(function (row){
         var newRow
         if(value>row.length){
           newRow= [...row];
-          newRow.push({});
+          for(var i=row.length; i<value; i++){
+            newRow.push({});
+          }
         }
         if(value<row.length){
           newRow = row.slice(0,value);

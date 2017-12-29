@@ -8,16 +8,24 @@ class BoardManipulator extends Component {
     }
   }
   changeRows (e) {
-    var newRowNumber = e.target.value;
+    var newRowNumber = limit(e.target.value,50);
+    if(!newRowNumber){
+      this.setState({
+        rows: newRowNumber
+      })
+      return
+    }
+    if(newRowNumber==="0") {
+      newRowNumber = 1
+    }
     this.setState({
       rows: newRowNumber
     })
-    if(newRowNumber>0){
-      this.props.boardManipulator('rows', newRowNumber)
-    }
+    this.props.boardManipulator('rows', newRowNumber)
   }
   changeColumns (e) {
-    var newColumnsNumber = e.target.value;
+    var newColumnsNumber = limit(e.target.value,50);
+
     this.setState({
       columns: newColumnsNumber
     })
@@ -33,5 +41,9 @@ class BoardManipulator extends Component {
       </div>
     )
   }
+}
+
+function limit (x, y) {
+  return x > y ? y : x;
 }
 export default BoardManipulator;
