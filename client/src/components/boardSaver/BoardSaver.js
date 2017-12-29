@@ -34,7 +34,8 @@ class BoardSaver extends React.Component {
   }
   _handleSubmit(e) {
     e.preventDefault();
-    var {boardState, fileName} = this.state;
+    var {fileName} = this.state;
+    var boardState = this.props.tableData;
     var savedBoard = {
       boardState: boardState,
       fileName: fileName
