@@ -1,9 +1,10 @@
 import React from 'react';
-import Board from '../../components/board/board'
-import BoardManipulator from '../../components/boardManipulator/BoardManipulator'
-import Chat from '../../components/chat/Chat'
-import ImageAdder from '../../components/imageAdder/ImageAdder'
-import ImageUpload from '../../components/imageUpload/ImageUpload'
+import Board from '../../components/board/board';
+import BoardSaver from '../../components/boardSaver/BoardSaver';
+import BoardManipulator from '../../components/boardManipulator/BoardManipulator';
+import Chat from '../../components/chat/Chat';
+import ImageAdder from '../../components/imageAdder/ImageAdder';
+import ImageUpload from '../../components/imageUpload/ImageUpload';
 import w3 from './img_w3slogo.gif'
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
@@ -145,6 +146,9 @@ class TableTop extends React.Component {
     var tableData = this.state.tableData
     return (
     <div>
+      <BoardSaver
+        tableData={tableData}>
+      </BoardSaver>
       <BoardManipulator boardManipulator={self.handleBoardChange}></BoardManipulator>
       <Board
         handleDrag={self.handleDrag}

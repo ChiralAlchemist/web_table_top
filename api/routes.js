@@ -1,12 +1,15 @@
 const mongodbSetup = require('./mongodb');
 const images = require('./images');
+const board = require('./board');
 function registerRoutes (app) {
   mongodbSetup.makeUniqueFields();
-  app.get('/api/images', images.get)
-  app.post('/api/images',images.post)
-  app.post('/api/users',mongodbSetup.postUser)
-  app.get('/api/users', mongodbSetup.getUsers)
-  app.get('/api/login', mongodbSetup.login)
+  app.get('/api/boards', board.get);
+  app.post('/api/boards',board.post);
+  app.get('/api/images', images.get);
+  app.post('/api/images',images.post);
+  app.get('/api/login', mongodbSetup.login);
+  app.get('/api/users', mongodbSetup.getUsers);
+  app.post('/api/users',mongodbSetup.postUser);
 }
 
 module.exports = registerRoutes;
