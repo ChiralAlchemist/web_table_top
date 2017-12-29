@@ -47,6 +47,7 @@ class TableTop extends React.Component {
     this.handleDrop = this.handleDrop.bind(this);
     this.addImage = this.addImage.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
+    this.loadBoardState = this.loadBoardState.bind(this);
   }
   addImage (image) {
     this.setState({
@@ -141,13 +142,20 @@ class TableTop extends React.Component {
       return newMatrix;
     }
   }
+  loadBoardState(boardState) {
+    console.log("called loadBoardState", boardState)
+    this.setState({
+      tableData: boardState
+    })
+  }
   render () {
     var self = this;
     var tableData = this.state.tableData
     return (
     <div>
       <BoardSaver
-        tableData={tableData}>
+        tableData={tableData}
+        loadBoardState={self.loadBoardState}>
       </BoardSaver>
       <BoardManipulator boardManipulator={self.handleBoardChange}></BoardManipulator>
       <Board
