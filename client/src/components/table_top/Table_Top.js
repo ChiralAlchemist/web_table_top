@@ -1,10 +1,9 @@
 import React from 'react';
+import Board from '../../components/board/board'
 import BoardManipulator from '../../components/boardManipulator/BoardManipulator'
-import Cell from '../../components/cell/Cell'
 import Chat from '../../components/chat/Chat'
 import ImageAdder from '../../components/imageAdder/ImageAdder'
 import ImageUpload from '../../components/imageUpload/ImageUpload'
-import './table_top.css';
 import w3 from './img_w3slogo.gif'
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
@@ -149,33 +148,11 @@ class TableTop extends React.Component {
     return (
     <div>
       <BoardManipulator boardManipulator={self.handleBoardChange}></BoardManipulator>
-      <table>
-        <tbody>
-          {
-            tableData.map(function (row, rowIdx) {
-              return (
-                <tr key={rowIdx}>
-                  {
-                    row.map(function (cell, colIdx) {
-                      var key = rowIdx*10 + colIdx
-                      var position = [rowIdx, colIdx]
-                      return (
-                        <td key={key}>
-                          <Cell  position={position}
-                            handleDrag ={self.handleDrag}
-                            handleDrop ={self.handleDrop}
-                            image={cell.image}
-                          />
-                        </td>
-                      )
-                    })
-                  }
-                </tr>
-              )
-            })
-          }
-        </tbody>
-      </table>
+      <Board
+        handleDrag={self.handleDrag}
+        handleDrop={self.handleDrop}
+        tableData={tableData}>
+      </Board>
       <Chat></Chat>
       <ImageUpload></ImageUpload>
       <ImageAdder addImage={self.addImage}></ImageAdder>
