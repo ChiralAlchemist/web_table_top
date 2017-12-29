@@ -47,9 +47,9 @@ class TableTop extends React.Component {
     this.addImage = this.addImage.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
   }
-  addImage (e) {
+  addImage (image) {
     this.setState({
-      addingImage: e
+      addingImage: image
     })
   }
   handleBoardChange (type, value) {
@@ -116,11 +116,9 @@ class TableTop extends React.Component {
     } else {
       alert('sockets not connected') // TODO EXPAND ON THIS
     }
-    this.setState(
-      {
+    this.setState({
         tableData: newTable
-      }
-    )
+    })
     function swap (matrix, start, end) {
       var temp = matrix[start[0]][start[1]]
       var newMatrix = [
@@ -160,8 +158,5 @@ class TableTop extends React.Component {
   )
   }
 }
-
-
-
 
 export default TableTop;
