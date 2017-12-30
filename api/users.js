@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 co = require('co');
+const dbUtils = require("./utils");
 const url = "mongodb://jashby473:thedbpassword@ds036577.mlab.com:36577/jashbyblog";
 
 const setupMongoDb = {
@@ -73,9 +74,6 @@ const setupMongoDb = {
         })
       }
       db.close();
-      res.json({
-
-      })
     }).catch(function(error) {
       console.log(error.stack);
     })
