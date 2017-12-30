@@ -6,7 +6,6 @@ class BoardSaver extends React.Component {
     super(props);
     this.state = {
       fileName: "default",
-      boardState: this.props.tableData,
       boardNames: []
     };
 
@@ -60,9 +59,8 @@ class BoardSaver extends React.Component {
         </form>
         <select onChange={(e)=>this._handleBoardSelect(e)}>
           {boardNames.map(function (board) {
-            return (<option value={board.fileName}>{board.fileName}</option>)
+            return (<option key={board._id} value={board.fileName}>{board.fileName}</option>)
           })}
-
         </select>
       </div>
     )

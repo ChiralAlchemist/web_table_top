@@ -5,7 +5,6 @@ var boardOperations = {
     var boardName = req.params.name;
     dbUtils.findOnefield('boards', 'boardState',{fileName:boardName})
     .then(function (boardState) {
-      console.log('boardState', boardState)
       res.json({
         boardState: boardState
       })
@@ -14,7 +13,6 @@ var boardOperations = {
   getNames: function(req, res) {
     dbUtils.findOnefield('boards', 'fileName')
     .then(function(boardNames){
-      console.log(boardNames)
       res.json({
         boardNames: boardNames})
     })
@@ -26,9 +24,13 @@ var boardOperations = {
       boardState: req.body.boardState,
       fileName: req.body.fileName
     }
-    dbUtils.addToCollection('boards', board)
+    dbUtils.addOrUpdate('boards',{'fileName': board.fileName}, board)
     .then(function(r){
-      console.log(r.ops)
+      console.log(r)
+      res.json({
+        success: true,
+        board: board
+      })
     })
     .catch(function(error){
       console.log(error);
