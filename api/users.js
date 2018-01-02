@@ -34,7 +34,7 @@ const setupMongoDb = {
       db.close();
       res.json({
         success: true,
-        req: req.data
+        user: user
       })
     }).catch(function(error) {
       console.log(error.stack);

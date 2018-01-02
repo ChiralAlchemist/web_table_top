@@ -76,7 +76,7 @@ function handleSignUp (response) {
   if(response.data.success===false ) {
     return alert(response.data.message) // TODO MAKE THIS PRETTIER
   }
-  this.props.history.push('protected');
+  this.props.history.push(`protected/${response.data.user.username}`);
 }
 
 function logError (error) {
