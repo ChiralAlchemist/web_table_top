@@ -54,9 +54,11 @@ class BoardSaver extends React.Component {
     return (
       <div>
         <form onSubmit={(e)=>this._handleSubmit(e)}>
+          <h2>Save the current board state</h2>
           <input onChange={(e)=>this._handleTextChange(e)} value={fileName} type="text"></input>
           <button>Save</button>
         </form>
+        <h2>Load a saved board State</h2>
         <select onChange={(e)=>this._handleBoardSelect(e)}>
           {boardNames.map(function (board) {
             return (<option key={board._id} value={board.fileName}>{board.fileName}</option>)

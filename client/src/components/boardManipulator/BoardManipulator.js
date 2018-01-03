@@ -35,6 +35,7 @@ class BoardManipulator extends Component {
   render () {
     return (
       <div>
+        <h2>Alter the size of the Board</h2>
         <label>Rows:</label>
         <input type="number" onChange={(e)=>this.changeRows(e)} value={this.props.row}></input>
         <label>Columns:</label>
