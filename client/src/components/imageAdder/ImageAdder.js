@@ -11,6 +11,9 @@ class ImageAdder extends React.Component {
       }]
     };
   }
+  componentDidMount() {
+    this._handleClick()
+  }
   _handleClick (e) {
     console.log('hangle click', this.state)
     var self = this;
@@ -40,7 +43,7 @@ class ImageAdder extends React.Component {
               <img
                 className="newImage"
                 draggable="true"
-                alt="" 
+                alt=""
                 onDragStart={(e)=>self._handleDragStart(e, image)}
                 src={image.image} />
             )
