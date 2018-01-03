@@ -1,0 +1,20 @@
+.table_topContainer {
+  float: center;
+  /* background-color: blue; */
+}
+
+.board {
+  float: left;
+  background-color: black;
+  width: 60%;
+  height: 800px;
+  overflow: auto;
+}
+.chatContainer {
+  width: 30%;
+  float: right;
+  background-color: orange;
+}
+.imageContainer {
+  float: right;
+}

@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 class BoardManipulator extends Component {
   constructor(props) {
     super(props);
+    var {row, column} = this.props
     this.state= {
-      rows : 2,
-      columns: 5
+      rows : row,
+      columns: column
     }
   }
   changeRows (e) {
@@ -35,9 +36,9 @@ class BoardManipulator extends Component {
     return (
       <div>
         <label>Rows:</label>
-        <input type="number" onChange={(e)=>this.changeRows(e)} value={this.state.rows}></input>
+        <input type="number" onChange={(e)=>this.changeRows(e)} value={this.props.row}></input>
         <label>Columns:</label>
-        <input type="number" onChange={(e)=>this.changeColumns(e)}value={this.state.columns}></input>
+        <input type="number" onChange={(e)=>this.changeColumns(e)} value={this.props.column}></input>
       </div>
     )
   }

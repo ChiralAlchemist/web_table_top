@@ -6,20 +6,21 @@ import Chat from '../../components/chat/Chat';
 import ImageAdder from '../../components/imageAdder/ImageAdder';
 import ImageUpload from '../../components/imageUpload/ImageUpload';
 import w3 from './img_w3slogo.gif'
+import './table_top.css'
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 const socket = new WebSocket(webSocketurl)
 //fake data
-var green = {
-  color : "green",
-  number : 1
-};
+var empty= {};
 var blue = {
   color : "blue",
   number : 2,
   image: w3
 }
-var startingTblData = [[green, green, green, green, blue],
-                  [green, green, green, green, green]
+var startingTblData = [[empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty]
                 ];
 class TableTop extends React.Component {
   constructor(props) {
@@ -151,21 +152,32 @@ class TableTop extends React.Component {
   render () {
     var self = this;
     var tableData = this.state.tableData
+    var row = tableData.length
+    var column = tableData[0].length
     return (
-    <div>
+    <div className="table_topContainer">
       <BoardSaver
         tableData={tableData}
         loadBoardState={self.loadBoardState}>
       </BoardSaver>
-      <BoardManipulator boardManipulator={self.handleBoardChange}></BoardManipulator>
-      <Board
-        handleDrag={self.handleDrag}
-        handleDrop={self.handleDrop}
-        tableData={tableData}>
-      </Board>
-      <Chat></Chat>
-      <ImageUpload></ImageUpload>
-      <ImageAdder addImage={self.addImage}></ImageAdder>
+      <BoardManipulator
+        row={tableData.length}
+        column={tableData[0].length}
+        boardManipulator={self.handleBoardChange}></BoardManipulator>
+      <div className='board'>
+        <Board
+          handleDrag={self.handleDrag}
+          handleDrop={self.handleDrop}
+          tableData={tableData}>
+        </Board>
+      </div>
+      <div className='chatContainer'>
+        <Chat></Chat>
+      </div>
+      <div className='imageContainer'>
+        <ImageUpload></ImageUpload>
+        <ImageAdder addImage={self.addImage}></ImageAdder>
+      </div>
   </div>
   )
   }
