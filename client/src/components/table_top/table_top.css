@@ -2,12 +2,14 @@
   float: center;
   /* background-color: blue; */
 }
-
+.boardOporatorContainer{
+  float:left;
+}
 .board {
   float: left;
   background-color: black;
-  width: 55%;
-  height: 700px;
+  width: 725px;
+  height: 725px;
   overflow: auto;
 }
 .chatContainer {
