@@ -1,6 +1,8 @@
 import React from "react"
 import { withRouter } from 'react-router-dom';
+import './chat.css'
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
+
 const socket = new WebSocket(webSocketurl)
 
 class Chat extends React.Component{
@@ -54,12 +56,14 @@ class Chat extends React.Component{
   }
   render () {
     return (
-      <div>
+      <div className='chat'>
+        <h1>Chat Room</h1>
         <div>
-          <ul>
-            {this.state.messages.map(function (message, idx){
-              return (<li key = {idx}>{message}</li>)
-            })
+          <ul className='chatUL'>
+            {
+              this.state.messages.map(function (message, idx){
+                return (<li key = {idx}>{message}</li>)
+              })
             }
           </ul>
         </div>

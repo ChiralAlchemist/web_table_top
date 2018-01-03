@@ -7,3 +7,7 @@
   width: 90%;
   height: 90%;
 }
+.board {
+  
+  overflow: scroll;
+}
