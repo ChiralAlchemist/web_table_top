@@ -16,11 +16,13 @@ var blue = {
   number : 2,
   image: w3
 }
-var startingTblData = [[empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty],
-                  [empty, empty, empty, empty, empty],
-                  [empty, empty, empty, empty, empty],
-                  [empty, empty, empty, empty, empty]
+var startingTblData = [[empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue],
+                  [empty, empty, empty, empty, empty, empty, blue]
                 ];
 class TableTop extends React.Component {
   constructor(props) {
@@ -156,14 +158,7 @@ class TableTop extends React.Component {
     var column = tableData[0].length
     return (
     <div className="table_topContainer">
-      <BoardSaver
-        tableData={tableData}
-        loadBoardState={self.loadBoardState}>
-      </BoardSaver>
-      <BoardManipulator
-        row={tableData.length}
-        column={tableData[0].length}
-        boardManipulator={self.handleBoardChange}></BoardManipulator>
+
       <div className='board'>
         <Board
           handleDrag={self.handleDrag}
@@ -175,9 +170,18 @@ class TableTop extends React.Component {
         <Chat></Chat>
       </div>
       <div className='imageContainer'>
+        <h1>Image Center</h1>
         <ImageUpload></ImageUpload>
         <ImageAdder addImage={self.addImage}></ImageAdder>
       </div>
+      <BoardSaver
+        tableData={tableData}
+        loadBoardState={self.loadBoardState}>
+      </BoardSaver>
+      <BoardManipulator
+        row={tableData.length}
+        column={tableData[0].length}
+        boardManipulator={self.handleBoardChange}></BoardManipulator>
   </div>
   )
   }

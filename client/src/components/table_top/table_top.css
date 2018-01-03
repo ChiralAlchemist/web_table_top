@@ -6,15 +6,16 @@
 .board {
   float: left;
   background-color: black;
-  width: 60%;
-  height: 800px;
+  width: 55%;
+  height: 700px;
   overflow: auto;
 }
 .chatContainer {
-  width: 30%;
+  width: 40%;
   float: right;
   background-color: orange;
 }
 .imageContainer {
+  width: 40%;
   float: right;
 }

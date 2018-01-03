@@ -50,6 +50,7 @@ class ImageUpload extends React.Component {
 
     return (
       <div className="previewComponent">
+        <h2>Upload Custom Images</h2>
         <form onSubmit={(e)=>this._handleSubmit(e)}>
           <input className="fileInput"
             type="file"

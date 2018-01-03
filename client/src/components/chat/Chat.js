@@ -11,7 +11,8 @@ class Chat extends React.Component{
    this.state = {
      messages: ['First message'],
      message: '',
-     username: this.props.match.params.user
+     username: this.props.match.params.user,
+     online: true
    };
    var self = this;
    socket.addEventListener('message', function(event) {
@@ -47,6 +48,9 @@ class Chat extends React.Component{
     if(socket.readyState===1) {
       socket.send(socketData);
     } else {
+      this.setState({
+        online: false
+      })
       alert('sockets not connected') // TODO EXPAND ON THIS
     }
     this.setState({
@@ -55,9 +59,11 @@ class Chat extends React.Component{
     });
   }
   render () {
+    var onlineStatus = this.state.online ? 'online' : 'offline';
     return (
       <div className='chat'>
         <h1>Chat Room</h1>
+        <h2 className={onlineStatus}>{onlineStatus}</h2>
         <div>
           <ul className='chatUL'>
             {

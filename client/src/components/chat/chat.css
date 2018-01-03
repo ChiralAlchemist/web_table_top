@@ -1,7 +1,14 @@
 .chat{
-  width: 400px;
+  width: 90%;
   height: 300px;
 }
 .chatUL{
   list-style: none;
+}
+
+.online{
+  color: green;
+}
+.offline{
+  color: red;
 }
