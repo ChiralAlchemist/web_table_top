@@ -5,12 +5,8 @@
 .boardOporatorContainer{
   float:left;
 }
-.board {
+.boardContainer {
   float: left;
-  background-color: black;
-  width: 725px;
-  height: 725px;
-  overflow: auto;
 }
 .chatContainer {
   width: 40%;

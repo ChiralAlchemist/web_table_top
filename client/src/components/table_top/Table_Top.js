@@ -158,12 +158,22 @@ class TableTop extends React.Component {
     var column = tableData[0].length
     return (
     <div className="table_topContainer">
-      <div className='board'>
+      <div className='boardContainer'>
         <Board
           handleDrag={self.handleDrag}
           handleDrop={self.handleDrop}
           tableData={tableData}>
         </Board>
+        <div className='boardOporatorContainer'>
+          <BoardSaver
+            tableData={tableData}
+            loadBoardState={self.loadBoardState}>
+          </BoardSaver>
+          <BoardManipulator
+            row={tableData.length}
+            column={tableData[0].length}
+            boardManipulator={self.handleBoardChange}></BoardManipulator>
+        </div>
       </div>
       <div className='chatContainer'>
         <Chat></Chat>
@@ -173,16 +183,7 @@ class TableTop extends React.Component {
         <ImageUpload></ImageUpload>
         <ImageAdder addImage={self.addImage}></ImageAdder>
       </div>
-      <div className='boardOporatorContainer'>
-        <BoardSaver
-          tableData={tableData}
-          loadBoardState={self.loadBoardState}>
-        </BoardSaver>
-        <BoardManipulator
-          row={tableData.length}
-          column={tableData[0].length}
-          boardManipulator={self.handleBoardChange}></BoardManipulator>
-      </div>
+
   </div>
   )
   }
