@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import './chat.css'
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
 
-const socket = new WebSocket(webSocketurl)
-
+//const socket = new WebSocket(webSocketurl)
+//askdfjlasas
 class Chat extends React.Component{
   constructor(props) {
    super(props);
@@ -15,7 +15,7 @@ class Chat extends React.Component{
      online: true
    };
    var self = this;
-   socket.addEventListener('message', function(event) {
+   this.props.socket.addEventListener('message', function(event) {
      var socketObj = JSON.parse(event.data);
      if(socketObj.type === "chat") {
        var newMessages = [...self.state.messages,socketObj.user+": "+ socketObj.data]
@@ -45,8 +45,8 @@ class Chat extends React.Component{
       data : message,
       user : username
     })
-    if(socket.readyState===1) {
-      socket.send(socketData);
+    if(this.props.socket.readyState===1) {
+      this.props.socket.send(socketData);
     } else {
       this.setState({
         online: false

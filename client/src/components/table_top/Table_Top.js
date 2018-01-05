@@ -176,7 +176,7 @@ class TableTop extends React.Component {
         </div>
       </div>
       <div className='chatContainer'>
-        <Chat></Chat>
+        <Chat socket={socket}></Chat>
       </div>
       <div className='imageContainer'>
         <h1>Image Center</h1>
