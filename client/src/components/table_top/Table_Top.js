@@ -7,8 +7,13 @@ import ImageAdder from '../../components/imageAdder/ImageAdder';
 import ImageUpload from '../../components/imageUpload/ImageUpload';
 import w3 from './img_w3slogo.gif'
 import './table_top.css'
+import ReconnectingWebsocket from '../../components/reconnectingWebsocket/ReconnectingWebsocket';
 const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://localhost:3001'
-const socket = new WebSocket(webSocketurl)
+const socket = new ReconnectingWebsocket();
+socket.open(webSocketurl)
+socket.onopen = function(e){
+	console.log("WebSocketClient connected:",e);
+}
 //fake data
 var empty= {};
 var blue = {
@@ -31,21 +36,31 @@ class TableTop extends React.Component {
       startingPosition: [0,0],
       endingPosition: [0,0],
       tableData: startingTblData,
-      addingImage: null
+      addingImage: null,
+      messages: ['First message'],
+      message: ''
     };
     const self = this;
     setUpWebSocket()
 
     function setUpWebSocket () {
-      socket.addEventListener('message', function(event) {
+      socket.onmessage = function(event) {
+        console.log("table_top event", event)
         var socketObj = JSON.parse(event.data)
         if(socketObj.type==="board"){
           self.setState({
             tableData: socketObj.data
           })
+        } else if (socketObj.type==="chat") {
+          var newMessages = [...self.state.messages,socketObj.user+": "+ socketObj.data]
+          self.setState({
+            messages: newMessages
+          })
         }
-      })
+      }
     }
+    this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.handleChatSubmit = this.handleChatSubmit.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.addImage = this.addImage.bind(this);
@@ -96,10 +111,35 @@ class TableTop extends React.Component {
       tableData: newTable
     })
   }
+  handleChatSubmit(event, message, username) {
+    console.log(arguments)
+    event.preventDefault();
+    var { messages } = this.state
+    var newMessage = username + ": " + message;
+    var socketData = JSON.stringify({
+      type : 'chat',
+      data : message,
+      user : username
+    })
+    socket.send(socketData);
+    this.setState({
+      messages: [...messages, newMessage],
+      message : ""
+    });
+  }
   handleDrag (startingPosition) {
     this.setState({
       startingPosition
     })
+  }
+  handleMessageChange(event) {
+    var target = event.target;
+    var value = target.value;
+    var name = target.name;
+    console.log(value)
+    this.setState({
+      [name]: value
+    });
   }
   handleDrop(endingPosition){
     var {startingPosition, tableData, addingImage} = this.state;
@@ -116,11 +156,11 @@ class TableTop extends React.Component {
       type: 'board',
       data: newTable
     })
-    if(socket.readyState===1) {
-      socket.send(socketData);
-    } else {
-      alert('sockets not connected') // TODO EXPAND ON THIS
-    }
+    socket.send(socketData);
+    // if(socket.readyState===1) {
+    // } else {
+    //   alert('sockets not connected') // TODO EXPAND ON THIS
+    // }
     this.setState({
         tableData: newTable
     })
@@ -153,7 +193,7 @@ class TableTop extends React.Component {
   }
   render () {
     var self = this;
-    var tableData = this.state.tableData
+    var {tableData, messages, message} = this.state
     var row = tableData.length
     var column = tableData[0].length
     return (
@@ -176,7 +216,12 @@ class TableTop extends React.Component {
         </div>
       </div>
       <div className='chatContainer'>
-        <Chat socket={socket}></Chat>
+        <Chat
+          socket={socket}
+          message={message}
+          messages={messages}
+          handleSubmit={self.handleChatSubmit}
+          handleChange={self.handleMessageChange}></Chat>
       </div>
       <div className='imageContainer'>
         <h1>Image Center</h1>
