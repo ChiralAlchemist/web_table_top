@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Board from '../../components/board/board';
 import BoardSaver from '../../components/boardSaver/BoardSaver';
 import BoardManipulator from '../../components/boardManipulator/BoardManipulator';
@@ -38,7 +39,8 @@ class TableTop extends React.Component {
       tableData: startingTblData,
       addingImage: null,
       messages: ['First message'],
-      message: ''
+      message: '',
+      images: []
     };
     const self = this;
     setUpWebSocket()
@@ -66,11 +68,15 @@ class TableTop extends React.Component {
     this.addImage = this.addImage.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
     this.loadBoardState = this.loadBoardState.bind(this);
+    this._loadImages = this._loadImages.bind(this);
   }
   addImage (image) {
     this.setState({
       addingImage: image
     })
+  }
+  componentDidMount() {
+    this._loadImages()
   }
   handleBoardChange (type, value) {
     var { tableData } = this.state
@@ -187,11 +193,20 @@ class TableTop extends React.Component {
       tableData: boardState
     })
   }
+  _loadImages (e) {
+    var self = this;
+    axios.get('/api/images')
+    .then(function (response) {
+      console.log(response)
+      self.setState({
+        images: [...response.data.images]
+      })
+
+    })
+  }
   render () {
     var self = this;
-    var {tableData, messages, message} = this.state
-    var row = tableData.length
-    var column = tableData[0].length
+    var {tableData, messages, message, images} = this.state
     return (
     <div className="table_topContainer">
       <div className='boardContainer'>
@@ -222,7 +237,11 @@ class TableTop extends React.Component {
       <div className='imageContainer'>
         <h1>Image Center</h1>
         <ImageUpload></ImageUpload>
-        <ImageAdder addImage={self.addImage}></ImageAdder>
+        <ImageAdder
+          addImage={self.addImage}
+          imageLoad={self._loadImages}
+          images={images}>
+        </ImageAdder>
       </div>
 
   </div>
