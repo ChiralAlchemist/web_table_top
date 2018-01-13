@@ -157,10 +157,6 @@ class TableTop extends React.Component {
       data: newTable
     })
     socket.send(socketData);
-    // if(socket.readyState===1) {
-    // } else {
-    //   alert('sockets not connected') // TODO EXPAND ON THIS
-    // }
     this.setState({
         tableData: newTable
     })
@@ -217,7 +213,7 @@ class TableTop extends React.Component {
       </div>
       <div className='chatContainer'>
         <Chat
-          socket={socket}
+          online={socket.online}
           message={message}
           messages={messages}
           handleSubmit={self.handleChatSubmit}

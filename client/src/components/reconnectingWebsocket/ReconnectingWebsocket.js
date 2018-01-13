@@ -3,11 +3,13 @@
 function WebSocketClient(){
 	this.number = 0;	// Message number
 	this.autoReconnectInterval = 5*1000;	// ms
+  this.online = false;
 }
 WebSocketClient.prototype.open = function(url){
 	this.url = url;
 	this.instance = new WebSocket(this.url);
 	this.instance.addEventListener('open',()=>{
+    this.online = true;
 		this.onopen();
 	});
 	this.instance.addEventListener('message',(data,flags)=>{
@@ -15,6 +17,7 @@ WebSocketClient.prototype.open = function(url){
 		this.onmessage(data,flags,this.number);
 	});
 	this.instance.addEventListener('close',(e)=>{
+    this.online = false
 		switch (e){
 		case 1000:	// CLOSE_NORMAL
 			console.log("WebSocket: closed");
