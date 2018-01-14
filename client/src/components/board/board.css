@@ -4,8 +4,10 @@
   background-color: green;
 }
 .cellImage {
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 80%;
+  padding-top: 10%;
+  padding-left: 10%;
 }
 .board {
   width: 725px;

@@ -14,6 +14,7 @@ function ImageAdder(props) {
               className="newImage"
               draggable="true"
               alt=""
+              key={image._id}
               onDragStart={(e)=>addImage(image)}
               src={image.image} />
           )

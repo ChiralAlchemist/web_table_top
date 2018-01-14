@@ -13,7 +13,7 @@ const webSocketurl = "wss://web-table-top-websocket.herokuapp.com//" //'ws://loc
 const socket = new ReconnectingWebsocket();
 socket.open(webSocketurl)
 socket.onopen = function(e){
-	console.log("WebSocketClient connected:",e);
+	console.log("WebSocketClient connected:");
 }
 //fake data
 var empty= {};
@@ -43,7 +43,6 @@ class TableTop extends React.Component {
 
     function setUpWebSocket () {
       socket.onmessage = function(event) {
-        console.log("table_top event", event)
         var socketObj = JSON.parse(event.data)
         if(socketObj.type==="board"){
           self.setState({
@@ -114,7 +113,6 @@ class TableTop extends React.Component {
     })
   }
   handleChatSubmit(event, message, username) {
-    console.log(arguments)
     event.preventDefault();
     var { messages } = this.state
     var newMessage = username + ": " + message;
@@ -186,7 +184,6 @@ class TableTop extends React.Component {
     }
   }
   loadBoardState(boardState) {
-    console.log("called loadBoardState", boardState)
     this.setState({
       tableData: boardState
     })
@@ -195,7 +192,6 @@ class TableTop extends React.Component {
     var self = this;
     axios.get('/api/images')
     .then(function (response) {
-      console.log(response)
       self.setState({
         images: [...response.data.images]
       })

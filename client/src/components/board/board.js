@@ -8,9 +8,6 @@ function Board(props) {
   images.forEach(function (image){
     id_Image[image._id] = image.image
   })
-  console.log(id_Image)
-  console.log(images)
-  console.log('tableData', tableData)
   return (
     <div className='board'>
       <table>
