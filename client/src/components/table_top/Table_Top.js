@@ -17,18 +17,14 @@ socket.onopen = function(e){
 }
 //fake data
 var empty= {};
-var blue = {
-  color : "blue",
-  number : 2,
-  image: w3
-}
-var startingTblData = [[empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue],
-                  [empty, empty, empty, empty, empty, empty, blue]
+
+var startingTblData = [[empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty],
+                  [empty, empty, empty, empty, empty, empty, empty]
                 ];
 class TableTop extends React.Component {
   constructor(props) {
@@ -142,7 +138,6 @@ class TableTop extends React.Component {
     var target = event.target;
     var value = target.value;
     var name = target.name;
-    console.log(value)
     this.setState({
       [name]: value
     });
@@ -151,7 +146,10 @@ class TableTop extends React.Component {
     var {startingPosition, tableData, addingImage} = this.state;
     var newTable;
     if(addingImage){
-      newTable = change(tableData,endingPosition, addingImage)
+      var newCell = {
+        _id: addingImage._id
+      }
+      newTable = change(tableData,endingPosition, newCell)
       this.setState({
         addingImage: null
       })
@@ -213,7 +211,8 @@ class TableTop extends React.Component {
         <Board
           handleDrag={self.handleDrag}
           handleDrop={self.handleDrop}
-          tableData={tableData}>
+          tableData={tableData}
+          images={images}>
         </Board>
         <div className='boardOporatorContainer'>
           <BoardSaver

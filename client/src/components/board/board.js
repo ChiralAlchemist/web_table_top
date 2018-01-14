@@ -3,7 +3,14 @@ import Cell from '../../components/cell/Cell'
 import './board.css';
 
 function Board(props) {
-  var {tableData, handleDrag, handleDrop} = props
+  var {tableData, handleDrag, handleDrop, images} = props
+  var id_Image = {};
+  images.forEach(function (image){
+    id_Image[image._id] = image.image
+  })
+  console.log(id_Image)
+  console.log(images)
+  console.log('tableData', tableData)
   return (
     <div className='board'>
       <table>
@@ -21,7 +28,7 @@ function Board(props) {
                           <Cell  position={position}
                             handleDrag ={handleDrag}
                             handleDrop ={handleDrop}
-                            image={cell.image}
+                            image={id_Image[cell._id]}
                           />
                         </td>
                       )
