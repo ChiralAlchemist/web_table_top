@@ -21,6 +21,10 @@ class Cell extends Component {
   }
   render () {
 
+    var background = this.props.background ? {
+      "background": `url(${this.props.background}) no-repeat`,
+      "backgroundSize": '100% 100%'
+    } : {}
     var cellContent = this.props.image ?
       <img src={this.props.image}
         className="cellImage"
@@ -36,7 +40,11 @@ class Cell extends Component {
       </div>;
 
     return (
-      <div className='cell' onDrop={(e) => this.drop(e)} onDragOver={(e)=> this.allowDrop(e)}>
+      <div
+        className='cell'
+        style={background}
+        onDrop={(e) => this.drop(e)}
+        onDragOver={(e)=> this.allowDrop(e)}>
         {cellContent}
 
       </div>

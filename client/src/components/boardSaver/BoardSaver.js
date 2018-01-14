@@ -53,7 +53,7 @@ class BoardSaver extends React.Component {
       <div>
         <form onSubmit={(e)=>this._handleSubmit(e)}>
           <h2>Save the current board state</h2>
-          <input onChange={(e)=>this.props._handleTextChange(e)} value={fileName} type="text"></input>
+          <input onChange={(e)=>this._handleTextChange(e)} value={fileName} type="text"></input>
           <button>Save</button>
         </form>
         <h2>Load a saved board State</h2>

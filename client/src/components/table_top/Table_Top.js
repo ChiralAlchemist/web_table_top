@@ -30,13 +30,14 @@ class TableTop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startingPosition: [0,0],
-      endingPosition: [0,0],
-      tableData: startingTblData,
       addingImage: null,
-      messages: ['First message'],
+      background: null,
+      endingPosition: [0,0],
+      images: [],
       message: '',
-      images: []
+      messages: ['First message'],
+      tableData: startingTblData,
+      startingPosition: [0,0]
     };
     const self = this;
     setUpWebSocket()
@@ -65,9 +66,10 @@ class TableTop extends React.Component {
     this.loadBoardState = this.loadBoardState.bind(this);
     this._loadImages = this._loadImages.bind(this);
   }
-  addImage (image) {
+  addImage (image, bof) {
     this.setState({
-      addingImage: image
+      addingImage: image,
+      background: bof
     })
   }
   componentDidMount() {
@@ -142,13 +144,17 @@ class TableTop extends React.Component {
     });
   }
   handleDrop(endingPosition){
-    var {startingPosition, tableData, addingImage} = this.state;
+    var {startingPosition, tableData, addingImage, background} = this.state;
     var newTable;
     if(addingImage){
-      var newCell = {
-        _id: addingImage._id
+      var newCell = {};
+      if(background==='figure'){
+        newCell['_id'] = addingImage._id
+      } else if(background==='background') {
+        newCell['backgroundId'] = addingImage._id
       }
       newTable = change(tableData,endingPosition, newCell)
+      console.log('handleDrop',  newTable)
       this.setState({
         addingImage: null
       })
@@ -164,14 +170,14 @@ class TableTop extends React.Component {
         tableData: newTable
     })
     function swap (matrix, start, end) {
-      var temp = matrix[start[0]][start[1]]
-      var newMatrix = [
-        ...matrix.slice(0,start[0]),
-        matrix[start[0]].slice(0,start[1]).concat([matrix[end[0]][end[1]]],
-        matrix[start[0]].slice(start[1]+1)),
-        ...matrix.slice(start[0]+1)
-      ]
-      newMatrix[end[0]][end[1]] = temp; // swap 2nd value
+      var startingCell = matrix[start[0]][start[1]];
+      var startingCellBackground = startingCell.backgroundId
+      var endingCell = matrix[end[0]][end[1]];
+      var endingCellBackground = endingCell.backgroundId
+      var newMatrix = change(matrix,start, endingCell);
+      newMatrix[start[0]][start[1]].backgroundId = startingCellBackground;
+      newMatrix[end[0]][end[1]] = startingCell;
+      newMatrix[end[0]][end[1]].backgroundId = endingCellBackground; // swap 2nd value
       return  newMatrix
     }
     function change(matrix, start,value){
@@ -202,6 +208,9 @@ class TableTop extends React.Component {
       })
 
     })
+  }
+  radioChange (e) {
+    console.log(e.target.value)
   }
   render () {
     var self = this;
@@ -240,6 +249,7 @@ class TableTop extends React.Component {
         <ImageAdder
           addImage={self.addImage}
           imageLoad={self._loadImages}
+          radioChange={self.radioChange}
           images={images}>
         </ImageAdder>
       </div>

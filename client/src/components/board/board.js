@@ -25,6 +25,7 @@ function Board(props) {
                           <Cell  position={position}
                             handleDrag ={handleDrag}
                             handleDrop ={handleDrop}
+                            background ={id_Image[cell.backgroundId]}
                             image={id_Image[cell._id]}
                           />
                         </td>
