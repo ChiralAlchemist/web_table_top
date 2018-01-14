@@ -42,11 +42,9 @@ class BoardSaver extends React.Component {
     axios.post('/api/boards',savedBoard)
   }
   _handleBoardSelect(e) {
-    console.log(e.target.value)
-    var self = this
-    axios.get(`/api/boards/${e.target.value}`)
-    .then(function (response){
-      self.props.loadBoardState(response.data.boardState[0].boardState)
+    this.props.loadBoardState(e.target.value)
+    this.setState({
+      fileName: e.target.value
     })
   }
   render () {
@@ -55,11 +53,11 @@ class BoardSaver extends React.Component {
       <div>
         <form onSubmit={(e)=>this._handleSubmit(e)}>
           <h2>Save the current board state</h2>
-          <input onChange={(e)=>this._handleTextChange(e)} value={fileName} type="text"></input>
+          <input onChange={(e)=>this.props._handleTextChange(e)} value={fileName} type="text"></input>
           <button>Save</button>
         </form>
         <h2>Load a saved board State</h2>
-        <select onChange={(e)=>this._handleBoardSelect(e)}>
+        <select value={fileName} onChange={(e)=>this._handleBoardSelect(e)}>
           {boardNames.map(function (board) {
             return (<option key={board._id} value={board.fileName}>{board.fileName}</option>)
           })}

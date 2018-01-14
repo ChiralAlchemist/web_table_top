@@ -72,6 +72,7 @@ class TableTop extends React.Component {
   }
   componentDidMount() {
     this._loadImages()
+    this.loadBoardState('default')
   }
   handleBoardChange (type, value) {
     var { tableData } = this.state
@@ -184,8 +185,12 @@ class TableTop extends React.Component {
     }
   }
   loadBoardState(boardState) {
-    this.setState({
-      tableData: boardState
+    var self = this;
+    axios.get(`/api/boards/${boardState}`)
+    .then(function (response){
+      self.setState({
+        tableData: response.data.boardState[0].boardState
+      })
     })
   }
   _loadImages (e) {
