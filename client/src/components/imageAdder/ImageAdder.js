@@ -6,9 +6,8 @@ class ImageAdder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      radioValue: null
+      radioValue: 'figure'
     };
-
   }
   radioChange (e) {
     console.log('radio change e', e.target.value)
