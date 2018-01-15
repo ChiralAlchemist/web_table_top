@@ -12,6 +12,6 @@
 .board {
   width: 725px;
   height: 725px;
-  /* background-color: black; */
+  background-color: black;
   overflow: auto;
 }
