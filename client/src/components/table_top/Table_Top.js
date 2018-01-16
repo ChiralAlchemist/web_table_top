@@ -153,6 +153,7 @@ class TableTop extends React.Component {
         newCell.backgroundId = tableData[endingPosition[0]][endingPosition[1]].backgroundId
       } else if(background==='background') {
         newCell.backgroundId = addingImage._id
+        newCell._id = tableData[endingPosition[0]][endingPosition[1]]._id
       }
       newTable = change(tableData,endingPosition, newCell)
       this.setState({

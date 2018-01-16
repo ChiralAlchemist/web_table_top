@@ -22,9 +22,10 @@ class Cell extends Component {
   render () {
 
     var background = this.props.background ? {
-      "background": `url(${this.props.background}) no-repeat`,
-      "backgroundSize": '100% 100%'
+      "backgroundImage": `url(${this.props.background})`,
+      "backgroundSize": 'cover'
     } : {}
+    console.log('background is' , background)
     var cellContent = this.props.image ?
       <img src={this.props.image}
         className="cellImage"
