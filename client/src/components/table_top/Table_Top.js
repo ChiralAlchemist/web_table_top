@@ -155,7 +155,6 @@ class TableTop extends React.Component {
         newCell.backgroundId = addingImage._id
       }
       newTable = change(tableData,endingPosition, newCell)
-      console.log('handleDrop',  newTable)
       this.setState({
         addingImage: null
       })
