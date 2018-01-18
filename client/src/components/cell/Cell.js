@@ -25,7 +25,6 @@ class Cell extends Component {
       "backgroundImage": `url(${this.props.background})`,
       "backgroundSize": 'cover'
     } : {}
-    console.log('background is' , background)
     var cellContent = this.props.image ?
       <img src={this.props.image}
         className="cellImage"
@@ -33,11 +32,7 @@ class Cell extends Component {
         onDragStart={(e) => this.drag(e)}
         alt=''
       />
-      : <div draggable="true"
-        onDragStart={(e) => this.drag(e)}
-        id={this.props.number}
-        alt=''>
-
+      : <div alt=''>
       </div>;
 
     return (

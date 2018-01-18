@@ -4,7 +4,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import AuthButton from './components/authButton/AuthButton'
 import Signup from './components/signup/Signup'
 import TableTop from './components/table_top/Table_Top'
 import './App.css';
@@ -14,11 +13,11 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <AuthButton/>
-        <ul>
+        {/* <ul>
           <li><Link to="/login">Login</Link></li>
         <li><Link to="/signup">Sign Up</Link></li>
-        </ul>
+        </ul> */}
+        <Route exact path="/" component={Signup}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/login" component={Signup}/>
         <Route path="/protected/:user" component={TableTop} />
