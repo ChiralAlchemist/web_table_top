@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from 'semantic-ui-react';
 import './imageAdder.css';
 
 // function ImageAdder(props) {
@@ -23,19 +24,17 @@ class ImageAdder extends React.Component {
         <h2>Custom Images</h2>
         <button onClick={(e)=>imageLoad(e)}>Refresh</button>
         <div>
-          <input
-            type='radio'
+          <Button.Group>
+          <Button
             value='background'
-            checked={radioValue==='background'}
-            onChange={(e)=>this.radioChange(e)}>
-          </input>
-          <label>Background</label>
-          <input
-            type='radio'
+            onClick={(e)=>this.radioChange(e)}>Background</Button>
+          <Button.Or />
+          <Button
             value="figure"
-            checked={radioValue==='figure'}
-            onChange={(e)=>this.radioChange(e)}></input>
-          <label>Figure</label>
+            onClick={(e)=>this.radioChange(e)}
+            >Figure</Button>
+          </Button.Group>
+          
         </div>
         {
           images.map(function (image, idx) {

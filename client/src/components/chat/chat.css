@@ -1,6 +1,10 @@
 .chat{
   width: 90%;
-  height: 300px;
+  height: 400px;
+}
+.chatDiv{
+  height: 250px;
+  overflow: auto;
 }
 .chatUL{
   list-style: none;

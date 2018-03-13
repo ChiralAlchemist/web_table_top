@@ -1,4 +1,5 @@
 import React from "react"
+import { Header, Message, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import './chat.css'
 
@@ -7,10 +8,14 @@ function Chat(props) {
   var username = props.match.params.user
   var onlineStatus = online ? 'online' : 'offline';
   return (
-    <div className='chat'>
-      <h1>Chat Room</h1>
+    <Message  className='chat'>
+      <Header>
+        Chat Room
+        <Icon name="comments" size='small'/>
+
+      </Header>
       <h2 className={onlineStatus}>{onlineStatus}</h2>
-      <div>
+      <div className='chatDiv'>
         <ul className='chatUL'>
           {
             messages.map(function (message, idx){
@@ -27,7 +32,7 @@ function Chat(props) {
         </input>
         <input type='submit' value='Submit'></input>
       </form>
-    </div>
+    </Message>
   );
 }
 

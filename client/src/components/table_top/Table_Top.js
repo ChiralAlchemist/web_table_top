@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment } from 'semantic-ui-react'
 import Board from '../../components/board/board';
 import BoardSaver from '../../components/boardSaver/BoardSaver';
 import BoardManipulator from '../../components/boardManipulator/BoardManipulator';
@@ -217,14 +218,37 @@ class TableTop extends React.Component {
     var self = this;
     var {tableData, messages, message, images} = this.state
     return (
-    <div className="table_topContainer">
+    <div>
+      <Grid>
+        <Grid.Column width={4}>
+          <h1>Image Center</h1>
+          <ImageUpload></ImageUpload>
+          <ImageAdder
+            addImage={self.addImage}
+            imageLoad={self._loadImages}
+            radioChange={self.radioChange}
+            images={images}>
+          </ImageAdder>
+        </Grid.Column>
+        <Grid.Column computer={8} mobile={6} tablet={3}>
+          <Board
+            handleDrag={self.handleDrag}
+            handleDrop={self.handleDrop}
+            tableData={tableData}
+            images={images}>
+          </Board>
+        </Grid.Column>
+        <Grid.Column computer={4} mobile={6} tablet={9}>
+          <Chat
+            online={socket.online}
+            message={message}
+            messages={messages}
+            handleSubmit={self.handleChatSubmit}
+            handleChange={self.handleMessageChange}></Chat>
+        </Grid.Column>
+        </Grid>
       <div className='boardContainer'>
-        <Board
-          handleDrag={self.handleDrag}
-          handleDrop={self.handleDrop}
-          tableData={tableData}
-          images={images}>
-        </Board>
+
         <div className='boardOporatorContainer'>
           <BoardSaver
             tableData={tableData}
@@ -237,22 +261,10 @@ class TableTop extends React.Component {
         </div>
       </div>
       <div className='chatContainer'>
-        <Chat
-          online={socket.online}
-          message={message}
-          messages={messages}
-          handleSubmit={self.handleChatSubmit}
-          handleChange={self.handleMessageChange}></Chat>
+
       </div>
       <div className='imageContainer'>
-        <h1>Image Center</h1>
-        <ImageUpload></ImageUpload>
-        <ImageAdder
-          addImage={self.addImage}
-          imageLoad={self._loadImages}
-          radioChange={self.radioChange}
-          images={images}>
-        </ImageAdder>
+
       </div>
 
   </div>
